@@ -21,6 +21,7 @@ It features both:
 - Streamlit web UI with form-based inputs
 - CLI support via `main.py`
 - Modular codebase for easy extension
+- Optional `.env` file support for API keys and config
 
 ---
 
@@ -30,6 +31,7 @@ It features both:
 data_extractor/
 ├── config.py
 ├── main.py
+├── .env
 ├── README.md
 ├── extractor/
 │   ├── api_extractor.py
@@ -62,7 +64,36 @@ pandas
 requests
 beautifulsoup4
 openpyxl
+python-dotenv
 ```
+
+---
+
+### 🛠️ Configuration via `.env`
+
+Create a `.env` file in your project root to securely manage config and API keys:
+
+```
+USE_API=true
+API_URL=https://jsonplaceholder.typicode.com/posts
+SCRAPE_URL=https://quotes.toscrape.com/
+EXPORT_CSV=data/output.csv
+EXPORT_EXCEL=data/output.xlsx
+DB_PATH=data/output.db
+TABLE_NAME=data
+OPENWEATHER_API_KEY=your_api_key_here
+```
+
+These values are automatically loaded in `config.py` using `python-dotenv`. The file starts with:
+
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+```
+
+This allows all environment variables from the `.env` file to be accessed using `os.getenv()`.
 
 ---
 
@@ -74,17 +105,7 @@ Run the extractor directly via terminal:
 python main.py
 ```
 
-Configure settings in `config.py`:
-
-```python
-USE_API = True
-API_URL = "https://jsonplaceholder.typicode.com/posts"
-SCRAPE_URL = "https://quotes.toscrape.com/"
-EXPORT_CSV = "data/output.csv"
-EXPORT_EXCEL = "data/output.xlsx"
-DB_PATH = "data/output.db"
-TABLE_NAME = "data"
-```
+Make sure your `.env` file is set up. Alternatively, you can edit `config.py` directly if not using environment variables.
 
 ---
 
@@ -97,7 +118,7 @@ streamlit run ui/streamlit_app.py
 This will launch a local web interface where you can:
 
 - Choose source type (API or website)
-- Input a URL
+- Input a URL and optional API key
 - Select export formats
 - Preview extracted data
 
