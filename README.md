@@ -111,6 +111,10 @@ Make sure your `.env` file is set up. Alternatively, you can edit `config.py` di
 
 ### 🌐 Streamlit Web UI
 
+### 🔗 Live Demo
+
+You can try the app instantly here: [Launch Streamlit App](https://mctrinity-data-extractor-uistreamlit-app-e2zp8b.streamlit.app/)
+
 ```bash
 streamlit run ui/streamlit_app.py
 ```
